@@ -1,4 +1,5 @@
 ﻿using ConfigChecker.Agent.Models;
+using System.Text;
 
 namespace ConfigChecker.Agent.Services;
 
@@ -12,7 +13,10 @@ public sealed class AgentFileService
             return "Unknown";
         }
 
-        return configFile;
+        var fileData = File.ReadAllText(configFile);
+
+        //return configFile;
+        return fileData;
 
         //return key switch
         //{
@@ -43,28 +47,33 @@ public sealed class AgentFileService
 
         List<string> configPaths = [];
 
-        foreach (var searchDir in dirsToSearch)
-        {
-            var clientDirs = Directory.EnumerateDirectories(searchDir, key, SearchOption.TopDirectoryOnly);
+        var clientDirs = GetDirectoriesByClientCode(key);
 
+        foreach (var clientDir in clientDirs)
+        {
             foreach (var fileNameToSearch in configFileNamesToSearch)
             {
-                foreach (var clientDir in clientDirs)
-                {
-                    var topLevelMatchingPaths = Directory.EnumerateFileSystemEntries(clientDir, fileNameToSearch, SearchOption.TopDirectoryOnly);
-                    configPaths.AddRange(topLevelMatchingPaths);
+                var searchPattern = string.Join("*", fileNameToSearch);
+                var configs = Directory.EnumerateFileSystemEntries(clientDir, searchPattern, SearchOption.AllDirectories);
 
-                    var childDirs = Directory.EnumerateDirectories(clientDir);
-
-                    foreach (var childDir in childDirs)
-                    {
-                        var paths = Directory.EnumerateFiles(childDir, fileNameToSearch, SearchOption.AllDirectories);
-                        configPaths.AddRange(paths);
-                    }
-                }
+                configPaths.AddRange(configs);
             }
         }
 
         return configPaths.ToArray();
+    }
+
+    private string[] GetDirectoriesByClientCode(string key)
+    {
+        var dirsToSearch = Constants.Directory.DirectoriesToSearch;
+        List<string> targetDirectories = [];
+
+        foreach (var searchDir in dirsToSearch)
+        {
+            var dir = Directory.EnumerateDirectories(searchDir, key, SearchOption.TopDirectoryOnly);
+            targetDirectories.AddRange(dir);
+        }
+
+        return targetDirectories.ToArray();
     }
 }
