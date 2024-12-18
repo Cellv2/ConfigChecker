@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\111222\" />
+    <Folder Include="Data\888999\" />
+  </ItemGroup>
+
 </Project>
