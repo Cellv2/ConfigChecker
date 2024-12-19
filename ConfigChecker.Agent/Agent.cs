@@ -1,11 +1,12 @@
 using ConfigChecker.Agent.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<IAgentFileService, AgentFileService>();
 var app = builder.Build();
 
-var fileService = new AgentFileService();
+var agentFileService = app.Services.GetRequiredService<IAgentFileService>();
 
-app.MapGet("/{clientCode}", (string clientCode) => new { Message = fileService.GetConfigFileValue(clientCode) });
+app.MapGet("/{clientCode}", (string clientCode) => new { Message = agentFileService.GetConfigFileValue(clientCode) });
 
 app.MapGet("/", () => "Hello World!");
 

@@ -1,53 +1,41 @@
-﻿using ConfigChecker.Agent.Models;
-using System.Text;
+﻿namespace ConfigChecker.Agent.Services;
 
-namespace ConfigChecker.Agent.Services;
-
-public sealed class AgentFileService
+public sealed class AgentFileService : IAgentFileService
 {
-    public string GetConfigFileValue(string key)
+    public string[] GetConfigFileValue(string clientCode)
     {
-        var configFile = TryGetConfig(key);
-        if (string.IsNullOrEmpty(configFile))
+        var configFilePaths = TryGetConfigPaths(clientCode);
+        if (configFilePaths.Length == 0)
         {
-            return "Unknown";
+            return ["Unknown"];
         }
 
-        var fileData = File.ReadAllText(configFile);
+        var fileData = configFilePaths.Select(File.ReadAllText).ToArray();
 
-        //return configFile;
         return fileData;
-
-        //return key switch
-        //{
-        //    "thing" => "_thing_",
-        //    "thing2" => "_thing2",
-        //    _ => "unknown"
-        //};
     }
 
-    //private ConfigFile TryGetConfig(string key)
-    private string? TryGetConfig(string key)
+    private string[] TryGetConfigPaths(string clientCode)
     {
-        var configFiles = GetConfigFilePathsForClientCode(key);
+        var configFiles = GetConfigFilePathsForClientCode(clientCode);
 
         if (configFiles.Length == 0)
         {
             Console.WriteLine("No config matches");
-            return null;
+            return [];
         }
 
-        return configFiles[0];
+        return configFiles;
     }
 
-    private string[] GetConfigFilePathsForClientCode(string key)
+    private string[] GetConfigFilePathsForClientCode(string clientCode)
     {
-        var dirsToSearch = Constants.Directory.DirectoriesToSearch;
-        var configFileNamesToSearch = Constants.Directory.ConfigFileNamesToSearch;
+        var dirsToSearch = Constants.ConfigSearch.DirectoriesToSearch;
+        var configFileNamesToSearch = Constants.ConfigSearch.ConfigFileNamesToSearch;
 
         List<string> configPaths = [];
 
-        var clientDirs = GetDirectoriesByClientCode(key);
+        var clientDirs = GetDirectoriesByClientCode(clientCode);
 
         foreach (var clientDir in clientDirs)
         {
@@ -63,14 +51,14 @@ public sealed class AgentFileService
         return configPaths.ToArray();
     }
 
-    private string[] GetDirectoriesByClientCode(string key)
+    private string[] GetDirectoriesByClientCode(string clientCode)
     {
-        var dirsToSearch = Constants.Directory.DirectoriesToSearch;
+        var dirsToSearch = Constants.ConfigSearch.DirectoriesToSearch;
         List<string> targetDirectories = [];
 
         foreach (var searchDir in dirsToSearch)
         {
-            var dir = Directory.EnumerateDirectories(searchDir, key, SearchOption.TopDirectoryOnly);
+            var dir = Directory.EnumerateDirectories(searchDir, clientCode, SearchOption.TopDirectoryOnly);
             targetDirectories.AddRange(dir);
         }
 

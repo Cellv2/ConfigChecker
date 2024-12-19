@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\111222\" />
-    <Folder Include="Data\888999\" />
+    <Folder Include="Data\111222\config\" />
+    <Folder Include="Data\888999\config\" />
   </ItemGroup>
 
 </Project>
