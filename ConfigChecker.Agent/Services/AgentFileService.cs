@@ -10,9 +10,7 @@ public sealed class AgentFileService : IAgentFileService
             return ["Unknown"];
         }
 
-        var fileData = configFilePaths.Select(File.ReadAllText).ToArray();
-
-        return fileData;
+        return configFilePaths;
     }
 
     private string[] TryGetConfigPaths(string clientCode)
@@ -31,7 +29,7 @@ public sealed class AgentFileService : IAgentFileService
     private string[] GetConfigFilePathsForClientCode(string clientCode)
     {
         var dirsToSearch = Constants.ConfigSearch.DirectoriesToSearch;
-        var configFileNamesToSearch = Constants.ConfigSearch.ConfigFileNamesToSearch;
+        var configFileNamesToSearch = Constants.ConfigSearch.JsonConfigFileNamesToSearch;
 
         List<string> configPaths = [];
 
