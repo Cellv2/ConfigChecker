@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigChecker.Agent", "Conf
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CFA14D11-C6DE-4F81-AC49-3EE343A86E2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus.Emulator.WebApi", "ServiceBus.Emulator.WebApi\ServiceBus.Emulator.WebApi.csproj", "{ABA086DB-1892-4973-BAE3-E93E325DBDD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CFA14D11-C6DE-4F81-AC49-3EE343A86E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA14D11-C6DE-4F81-AC49-3EE343A86E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA14D11-C6DE-4F81-AC49-3EE343A86E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABA086DB-1892-4973-BAE3-E93E325DBDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA086DB-1892-4973-BAE3-E93E325DBDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA086DB-1892-4973-BAE3-E93E325DBDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA086DB-1892-4973-BAE3-E93E325DBDD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

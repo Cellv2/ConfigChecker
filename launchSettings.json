@@ -6,7 +6,8 @@
       "serviceActions": {
         "configchecker.agent": "StartDebugging",
         "emulator": "StartWithoutDebugging",
-        "sqledge": "StartWithoutDebugging"
+        "sqledge": "StartWithoutDebugging",
+        "servicebus.emulator.webapi": "StartDebugging"
       }
     }
   }
