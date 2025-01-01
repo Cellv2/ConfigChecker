@@ -8,6 +8,8 @@ services:
     ports:
       - "56000:8080"
       - "56001:8081"
+    depends_on:
+     - emulator
   emulator:
     container_name: "servicebus-emulator"
     image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
@@ -43,6 +45,10 @@ services:
     ports:
      - "56500:8080"
      - "56501:8081"
+    depends_on:
+     - emulator
+    networks:
+      sb-emulator:
 
 networks:
   sb-emulator:

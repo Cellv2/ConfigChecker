@@ -8,7 +8,7 @@ Accept: application/json
 POST {{ServiceBus.Emulator.WebApi_HostAddress}}/testSendToQueue
 Content-Type: application/json
 {
-    "queueName": "TestQueue"
+    "queueName": "queue.1"
 }
 
 ###
