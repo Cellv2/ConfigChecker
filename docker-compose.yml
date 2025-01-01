@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: ConfigChecker.Agent/Dockerfile
+    ports:
+      - "56000:8080"
+      - "56001:8081"
   emulator:
     container_name: "servicebus-emulator"
     image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
@@ -37,6 +40,9 @@ services:
     build:
       context: .
       dockerfile: ServiceBus.Emulator.WebApi/Dockerfile
+    ports:
+     - "56050:8080"
+     - "56501:8081"
 
 networks:
   sb-emulator:

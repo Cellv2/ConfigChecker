@@ -1,5 +1,5 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
-@ConfigChecker.Agent_HostAddress = https://localhost:59223
+@ConfigChecker.Agent_HostAddress = https://localhost:56001
 
 # get dave
 GET {{ConfigChecker.Agent_HostAddress}}/api/888999
