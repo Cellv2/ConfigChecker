@@ -41,7 +41,7 @@ services:
       context: .
       dockerfile: ServiceBus.Emulator.WebApi/Dockerfile
     ports:
-     - "56050:8080"
+     - "56500:8080"
      - "56501:8081"
 
 networks:
