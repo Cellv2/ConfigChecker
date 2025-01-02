@@ -9,7 +9,8 @@ services:
       - "56000:8080"
       - "56001:8081"
     depends_on:
-     - emulator
+      servicebus.emulator.webapi:
+        condition: service_healthy
   emulator:
     container_name: "servicebus-emulator"
     image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
@@ -42,6 +43,16 @@ services:
     build:
       context: .
       dockerfile: ServiceBus.Emulator.WebApi/Dockerfile
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "https://localhost:56501/healthz"]
+      # test: "curl --fail -k https://0.0.0.0:8081/healthz || exit 1"
+      test: "curl -k -s -I https://0.0.0.0:8081/healthz | head -n 1 | grep 200"
+      # interval: 1m30s
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      # start_period: 40s
+      # start_interval: 5s
     ports:
      - "56500:8080"
      - "56501:8081"

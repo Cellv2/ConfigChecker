@@ -2,24 +2,10 @@
 
 namespace ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
-public sealed class EnqueueService : IEnqueueService
+public sealed class EnqueueService(IClientManager clientManager) : IEnqueueService
 {
-    private ServiceBusClient client;
-    private const string sbConnectionString = "Endpoint=sb://servicebus-emulator;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;";
-
+    private ServiceBusClient client = clientManager.GetServiceBusClient();
     private const int numOfMessages = 3;
-
-    public EnqueueService()
-    {
-        //ServiceBusClientOptions clientOptions = new ServiceBusClientOptions()
-        //{
-        //    TransportType = ServiceBusTransportType.AmqpTcp
-        //};
-
-        //client = new ServiceBusClient(sbConnectionString, clientOptions);
-
-        client = new ServiceBusClient(sbConnectionString);
-    }
 
     public async Task CreateBatchInQueue(string queueName)
     {

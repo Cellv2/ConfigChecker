@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Azure;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
 // check this for some examples of stuff:
@@ -8,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddHealthChecks();
+builder.Services.AddSingleton<IClientManager, ClientManager>();
 builder.Services.AddSingleton<IEnqueueService, EnqueueService>();
+builder.Services.AddHealthChecks().AddAzureServiceBusQueue("Endpoint=sb://servicebus-emulator;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;", "queue.1");
 var app = builder.Build();
 
 var enqueueService = app.Services.GetRequiredService<IEnqueueService>();
@@ -39,6 +43,8 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapHealthChecks("/healthz");
 
 app.MapPost("/testSendToQueue", async (TestQueueSubmission queueSubmission) =>
 {
