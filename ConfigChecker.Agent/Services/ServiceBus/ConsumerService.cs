@@ -26,6 +26,10 @@ public sealed class ConsumerService(IClientManager clientManager) : IConsumerSer
 
             //Console.WriteLine("Wait for a minute and then press any key to end the processing");
             //Console.ReadKey();
+            // !!! TRADE OFFER !!!
+            // I receive code that does what I want
+            // You receive stupid code
+            Console.Read();
 
             //// stop processing 
             //Console.WriteLine("\nStopping the receiver...");
