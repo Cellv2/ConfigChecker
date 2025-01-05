@@ -10,9 +10,8 @@ public sealed class ConsumerService(IClientManager clientManager) : IConsumerSer
 
     CancellationTokenSource tokenSource = new CancellationTokenSource();
 
-    public async Task ConsumeQueueMessagesAsync()
+    public async Task ConsumeQueueMessagesAsync(string queueName)
     {
-        string queueName = "queue.1";
         ServiceBusProcessor processor = client.CreateProcessor(queueName);
 
         try
@@ -26,12 +25,13 @@ public sealed class ConsumerService(IClientManager clientManager) : IConsumerSer
             shouldProcessQueueMessages = true;
 
             // start processing 
-            Console.WriteLine($"Queue processing for {queueName} has started");
+            Console.WriteLine($"Starting queue processing for {queueName}");
             while (shouldProcessQueueMessages)
             {
                 if (!processor.IsProcessing)
                 {
                     await processor.StartProcessingAsync(tokenSource.Token);
+                    Console.WriteLine($"Started queue processing for {queueName} successfully");
                 }
             }
 

@@ -17,10 +17,10 @@ var agentFileService = app.Services.GetRequiredService<IAgentFileService>();
 var configMappingProcessor = app.Services.GetRequiredService<IConfigMappingProcessor>();
 var consumer = app.Services.GetRequiredService<IConsumerService>();
 
-//await consumer.ConsumeQueueMessagesAsync();
+const string queueName = "queue.1";
 
 var hostApplicationLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
-hostApplicationLifetime.ApplicationStarted.Register(async () => await consumer.ConsumeQueueMessagesAsync());
+hostApplicationLifetime.ApplicationStarted.Register(async () => await consumer.ConsumeQueueMessagesAsync(queueName));
 hostApplicationLifetime.ApplicationStopping.Register(async () => await consumer.Shutdown());
 
 app.MapGet("/api/{clientCode}", (string clientCode) => new { Message = configMappingProcessor.ProcessConfigsPathsToObjects(agentFileService.GetConfigFileValue(clientCode)) });
