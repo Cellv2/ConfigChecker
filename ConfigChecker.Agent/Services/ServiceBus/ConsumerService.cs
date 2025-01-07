@@ -1,9 +1,10 @@
 ﻿using Azure.Messaging.ServiceBus;
+using ConfigChecker.Agent.Services.ConfigProcessor;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
 namespace ConfigChecker.Agent.Services.ServiceBus;
 
-public sealed class ConsumerService(IClientManager clientManager) : IConsumerService
+public sealed class ConsumerService(IClientManager clientManager, IConfigMappingProcessor configMappingProcessor, IAgentFileService agentFileService) : IConsumerService
 {
     private ServiceBusClient client = clientManager.GetServiceBusClient();
     private bool shouldProcessQueueMessages = false;
@@ -67,6 +68,10 @@ public sealed class ConsumerService(IClientManager clientManager) : IConsumerSer
     {
         string body = args.Message.Body.ToString();
         Console.WriteLine($"Received: {body}");
+
+        string clientCode = body;
+        var mapped = configMappingProcessor.ProcessConfigsPathsToObjects(agentFileService.GetConfigFileValue(clientCode));
+        Array.ForEach(mapped, Console.WriteLine);
 
         // complete the message. message is deleted from the queue. 
         await args.CompleteMessageAsync(args.Message);

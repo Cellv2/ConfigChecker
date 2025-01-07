@@ -13,6 +13,15 @@ Content-Type: application/json
 
 ###
 
+POST {{ServiceBus.Emulator.WebApi_HostAddress}}/sendClientCodeToQueue
+Content-Type: application/json
+{
+    "queueName": "queue.1",
+    "clientCode": "888999"
+}
+
+###
+
 GET {{ServiceBus.Emulator.WebApi_HostAddress}}/healthz
 
 ###

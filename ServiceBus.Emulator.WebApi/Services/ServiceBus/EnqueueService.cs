@@ -63,4 +63,22 @@ public sealed class EnqueueService(IClientManager clientManager) : IEnqueueServi
 
         //await sender.DisposeAsync();
     }
+
+    public async Task SendClientCodeToSpecifiedQueue(string queueName, string clientCode)
+    {
+        ServiceBusSender sender = client.CreateSender(queueName);
+
+        try
+        {
+            await sender.SendMessageAsync(new ServiceBusMessage(clientCode));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await sender.DisposeAsync();
+        }
+    }
 }

@@ -60,9 +60,23 @@ app.MapPost("/testSendToQueue", async (TestQueueSubmission queueSubmission) =>
 
 });
 
+app.MapPost("/sendClientCodeToQueue", async (ClientCodeQueueSubmission queueSubmission) => {
+    try
+    {
+        await enqueueService.SendClientCodeToSpecifiedQueue(queueSubmission.QueueName, queueSubmission.ClientCode);
+        return Results.Ok(queueSubmission);
+    }
+    catch (Exception ex)
+    {
+        return Results.BadRequest(ex);
+    }
+});
+
 app.Run();
 
 record TestQueueSubmission(string QueueName);
+
+record ClientCodeQueueSubmission(string QueueName, string ClientCode);
 
 
 
