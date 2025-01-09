@@ -16,5 +16,11 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="redis\seed-data.redis" />
+    <None Include="redis\Dockerfile" />
+    <None Include="redis\start-redis.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Redis\" />
   </ItemGroup>
 </Project>
