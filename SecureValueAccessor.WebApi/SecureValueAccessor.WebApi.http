@@ -4,3 +4,11 @@ GET {{SecureValueAccessor.WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{SecureValueAccessor.WebApi_HostAddress}}/getRedisValueByKey
+Content-Type: application/json
+{
+    "key": "key1"
+}
+
+###

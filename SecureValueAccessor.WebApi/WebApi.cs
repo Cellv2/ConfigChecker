@@ -1,3 +1,7 @@
+using NRedisStack;
+using NRedisStack.RedisStackCommands;
+using StackExchange.Redis;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,28 +18,30 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
+
+
+app.MapPost("/getRedisValueByKey", async (X theThings) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    //ConfigurationOptions configurationOptions = new()
+    //{
+    //    EndPoints = { { "data.redis", 7379 } }
+    //};
+    //ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(configurationOptions);
+    //ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("data.redis:7379");
+    ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("data.redis:6379");
+    IDatabase db = redis.GetDatabase();
+
+    var redisValue = await db.StringGetAsync(theThings.Key);
+    if (redisValue.HasValue == false)
+    {
+        return Results.NotFound($"No value found for key '{theThings.Key}'");
+    }
+
+    return Results.Ok(redisValue);
+});
+
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+public record X(string Key);
