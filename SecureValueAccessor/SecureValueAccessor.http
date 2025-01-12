@@ -1,0 +1,6 @@
+@SecureValueAccessor_HostAddress = http://localhost:5210
+
+GET {{SecureValueAccessor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
