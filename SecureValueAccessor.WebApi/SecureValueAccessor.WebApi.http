@@ -1,0 +1,22 @@
+@SecureValueAccessor.WebApi_HostAddress = https://localhost:57001
+
+GET {{SecureValueAccessor.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{SecureValueAccessor.WebApi_HostAddress}}/getRedisValueByKey
+Content-Type: application/json
+{
+    "key": "key1"
+}
+
+###
+
+POST {{SecureValueAccessor.WebApi_HostAddress}}/getRedisValueByKey
+Content-Type: application/json
+{
+    "key": "this-should-not-exist"
+}
+
+###

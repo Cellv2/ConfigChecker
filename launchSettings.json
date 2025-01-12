@@ -5,9 +5,11 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "configchecker.agent": "StartDebugging",
+        "configchecker.data.redis": "StartWithoutDebugging",
         "emulator": "StartWithoutDebugging",
         "sqledge": "StartWithoutDebugging",
-        "servicebus.emulator.webapi": "StartDebugging"
+        "servicebus.emulator.webapi": "StartDebugging",
+        "securevalueaccessor.webapi": "StartDebugging"
       }
     }
   }
