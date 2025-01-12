@@ -14,6 +14,7 @@ services:
         # condition: service_healthy
     networks:
       sb-emulator:
+
   emulator:
     container_name: "servicebus-emulator"
     image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
@@ -31,6 +32,7 @@ services:
       sb-emulator:
         aliases:
           - "sb-emulator"
+
   data.redis:
     container_name: data.redis
     image: ${DOCKER_REGISTRY-}dataredis
@@ -43,6 +45,7 @@ services:
       value-provider:
         aliases:
           - "value-provider"
+
   sqledge:
         container_name: "sqledge"
         image: "mcr.microsoft.com/azure-sql-edge:latest"
@@ -53,6 +56,7 @@ services:
         environment:
           ACCEPT_EULA: ${ACCEPT_EULA}
           MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+
   servicebus.emulator.webapi:
     image: ${DOCKER_REGISTRY-}servicebusemulatorwebapi
     build:
@@ -75,6 +79,14 @@ services:
      - emulator
     networks:
       sb-emulator:
+
+  securevalueaccessor:
+    image: ${DOCKER_REGISTRY-}securevalueaccessor
+    build:
+      context: .
+      dockerfile: SecureValueAccessor/Dockerfile
+    networks:
+      value-provider:
 
 networks:
   sb-emulator:

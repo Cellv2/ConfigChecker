@@ -7,7 +7,8 @@
         "configchecker.agent": "StartDebugging",
         "emulator": "StartWithoutDebugging",
         "sqledge": "StartWithoutDebugging",
-        "servicebus.emulator.webapi": "StartDebugging"
+        "servicebus.emulator.webapi": "StartDebugging",
+        "securevalueaccessor": "StartDebugging"
       }
     }
   }
