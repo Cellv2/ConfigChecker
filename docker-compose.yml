@@ -88,6 +88,13 @@ services:
     networks:
       value-provider:
 
+  securevalueaccessor.webapi:
+    image: ${DOCKER_REGISTRY-}securevalueaccessorwebapi
+    build:
+      context: .
+      dockerfile: SecureValueAccessor.WebApi/Dockerfile
+
 networks:
   sb-emulator:
   value-provider:
+
