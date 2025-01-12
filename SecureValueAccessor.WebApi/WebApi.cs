@@ -23,13 +23,7 @@ app.UseHttpsRedirection();
 
 app.MapPost("/getRedisValueByKey", async (X theThings) =>
 {
-    //ConfigurationOptions configurationOptions = new()
-    //{
-    //    EndPoints = { { "data.redis", 7379 } }
-    //};
-    //ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(configurationOptions);
-    //ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("data.redis:7379");
-    ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("data.redis:6379");
+    ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("configchecker.data.redis:6379");
     IDatabase db = redis.GetDatabase();
 
     var redisValue = await db.StringGetAsync(theThings.Key);
@@ -38,7 +32,7 @@ app.MapPost("/getRedisValueByKey", async (X theThings) =>
         return Results.NotFound($"No value found for key '{theThings.Key}'");
     }
 
-    return Results.Ok(redisValue);
+    return Results.Ok(redisValue.ToString());
 });
 
 

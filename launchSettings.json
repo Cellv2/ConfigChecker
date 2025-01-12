@@ -5,7 +5,7 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "configchecker.agent": "StartDebugging",
-        "data.redis": "StartWithoutDebugging",
+        "configchecker.data.redis": "StartWithoutDebugging",
         "emulator": "StartWithoutDebugging",
         "sqledge": "StartWithoutDebugging",
         "servicebus.emulator.webapi": "StartDebugging",

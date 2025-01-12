@@ -33,18 +33,13 @@ services:
         aliases:
           - "sb-emulator"
 
-  data.redis:
-    # container_name: data.redis
+  configchecker.data.redis:
     image: ${DOCKER_REGISTRY-}dataredis
     build:
       context: .
       dockerfile: ./Redis/Dockerfile
-    # ports:
-    #   - "7379:6379"
     networks:
       value-provider:
-        # aliases:
-        #   - "value-provider"
 
   sqledge:
         container_name: "sqledge"
@@ -89,7 +84,7 @@ services:
       - "57000:8080"
       - "57001:8081"
     depends_on:
-      - "data.redis"
+      - "configchecker.data.redis"
     networks:
       value-provider:
 
