@@ -8,7 +8,6 @@
         "emulator": "StartWithoutDebugging",
         "sqledge": "StartWithoutDebugging",
         "servicebus.emulator.webapi": "StartDebugging",
-        "securevalueaccessor": "StartDebugging",
         "securevalueaccessor.webapi": "StartDebugging"
       }
     }

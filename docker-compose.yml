@@ -80,19 +80,16 @@ services:
     networks:
       sb-emulator:
 
-  securevalueaccessor:
-    image: ${DOCKER_REGISTRY-}securevalueaccessor
-    build:
-      context: .
-      dockerfile: SecureValueAccessor/Dockerfile
-    networks:
-      value-provider:
-
   securevalueaccessor.webapi:
     image: ${DOCKER_REGISTRY-}securevalueaccessorwebapi
     build:
       context: .
       dockerfile: SecureValueAccessor.WebApi/Dockerfile
+    ports:
+      - "57000:8080"
+      - "57001:8081"
+    networks:
+      value-provider:
 
 networks:
   sb-emulator:
