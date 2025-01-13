@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Azure;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
 // check this for some examples of stuff:
@@ -25,25 +24,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
 app.MapHealthChecks("/healthz");
 
 app.MapPost("/testSendToQueue", async (TestQueueSubmission queueSubmission) =>
@@ -58,7 +38,8 @@ app.MapPost("/testSendToQueue", async (TestQueueSubmission queueSubmission) =>
         return Results.BadRequest(ex);
     }
 
-});
+})
+.WithName("PostTestSendToQueue");
 
 app.MapPost("/sendClientCodeToQueue", async (ClientCodeQueueSubmission queueSubmission) => {
     try
@@ -77,10 +58,3 @@ app.Run();
 record TestQueueSubmission(string QueueName);
 
 record ClientCodeQueueSubmission(string QueueName, string ClientCode);
-
-
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

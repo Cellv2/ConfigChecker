@@ -1,10 +1,5 @@
 @ServiceBus.Emulator.WebApi_HostAddress = https://localhost:56501
 
-GET {{ServiceBus.Emulator.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
-
 POST {{ServiceBus.Emulator.WebApi_HostAddress}}/testSendToQueue
 Content-Type: application/json
 {
