@@ -11,6 +11,7 @@ builder.Services.AddSingleton<IConfigMappingProcessor, ConfigToObjectProcessor>(
 builder.Services.AddTransient<IConfigToObjectMapperBase, JsonConfigMapper>();
 builder.Services.AddTransient<IConfigToObjectMapperBase, XmlConfigMapper>();
 builder.Services.AddSingleton<IConsumerService, ConsumerService>();
+builder.Services.AddSingleton<IResponseService, ResponseService>();
 var app = builder.Build();
 
 var agentFileService = app.Services.GetRequiredService<IAgentFileService>();
