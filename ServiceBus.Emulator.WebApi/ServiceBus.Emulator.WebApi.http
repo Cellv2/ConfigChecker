@@ -17,7 +17,7 @@ Content-Type: application/json
 
 ###
 
-GET {{ServiceBus.Emulator.WebApi_HostAddress}}/getResponseQueueMessages
+GET {{ServiceBus.Emulator.WebApi_HostAddress}}/peekResponseQueueMessages
 
 ###
 

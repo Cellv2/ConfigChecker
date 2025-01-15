@@ -55,7 +55,7 @@ app.MapPost("/sendClientCodeToQueue", async (ClientCodeQueueSubmission queueSubm
     }
 });
 
-app.MapGet("/getResponseQueueMessages", async () =>
+app.MapGet("/peekResponseQueueMessages", async () =>
 {
     try
     {
