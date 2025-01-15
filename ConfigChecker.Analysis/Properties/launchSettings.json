@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ConfigChecker.Analysis": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
