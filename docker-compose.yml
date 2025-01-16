@@ -14,7 +14,6 @@ services:
         # condition: service_healthy
     networks:
       sb-emulator:
-      value-provider:
 
   configchecker.analysis:
     image: ${DOCKER_REGISTRY-}configcheckeranalysis
@@ -26,6 +25,7 @@ services:
       - securevalueaccessor.webapi
     networks:
       sb-emulator:
+      value-provider:
 
   emulator:
     container_name: "servicebus-emulator"

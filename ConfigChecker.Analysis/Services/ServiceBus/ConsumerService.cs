@@ -1,12 +1,9 @@
 ﻿using Azure.Messaging.ServiceBus;
-using ConfigChecker.Agent.Services.ConfigProcessor;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace ConfigChecker.Agent.Services.ServiceBus;
+namespace ConfigChecker.Analysis.Services.ServiceBus;
 
-public sealed class ConsumerService(IClientManager clientManager, IConfigMappingProcessor configMappingProcessor, IAgentFileService agentFileService, IResponseService responseService) : IConsumerService
+public sealed class ConsumerService(IClientManager clientManager) : IConsumerService
 {
     private ServiceBusClient client = clientManager.GetServiceBusClient();
     private bool shouldProcessQueueMessages = false;
@@ -71,12 +68,7 @@ public sealed class ConsumerService(IClientManager clientManager, IConfigMapping
         string body = args.Message.Body.ToString();
         Console.WriteLine($"Received: {body}");
 
-        string clientCode = body;
-        var mapped = configMappingProcessor.ProcessConfigsPathsToObjects(agentFileService.GetConfigFileValue(clientCode));
-        Array.ForEach(mapped, Console.WriteLine);
-
-        var serialized = JsonSerializer.Serialize(mapped);
-        await responseService.Send(serialized);
+        Console.WriteLine("TODO: process this now please!");
 
         // complete the message. message is deleted from the queue. 
         await args.CompleteMessageAsync(args.Message);
