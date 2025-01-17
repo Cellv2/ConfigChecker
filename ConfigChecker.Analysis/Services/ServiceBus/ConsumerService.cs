@@ -1,9 +1,10 @@
 ﻿using Azure.Messaging.ServiceBus;
+using ConfigChecker.Analysis.Services.HttpClients;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
 namespace ConfigChecker.Analysis.Services.ServiceBus;
 
-public sealed class ConsumerService(IClientManager clientManager) : IConsumerService
+public sealed class ConsumerService(IClientManager clientManager, ISecureValueAccessHttpClient secureValueAccessHttpClient) : IConsumerService
 {
     private ServiceBusClient client = clientManager.GetServiceBusClient();
     private bool shouldProcessQueueMessages = false;
@@ -69,6 +70,7 @@ public sealed class ConsumerService(IClientManager clientManager) : IConsumerSer
         Console.WriteLine($"Received: {body}");
 
         Console.WriteLine("TODO: process this now please!");
+        await secureValueAccessHttpClient.GetValueFromRedis("key1");
 
         // complete the message. message is deleted from the queue. 
         await args.CompleteMessageAsync(args.Message);
