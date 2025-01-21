@@ -1,10 +1,12 @@
 ﻿using Azure.Messaging.ServiceBus;
 using ConfigChecker.Analysis.Services.HttpClients;
+using ConfigChecker.Analysis.Services.SecureValueAccess;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
+using System.Text.Json;
 
 namespace ConfigChecker.Analysis.Services.ServiceBus;
 
-public sealed class ConsumerService(IClientManager clientManager, ISecureValueAccessHttpClient secureValueAccessHttpClient) : IConsumerService
+public sealed class ConsumerService(IClientManager clientManager, ISecureValueAccessHttpClient secureValueAccessHttpClient, ISecureValueAccessService secureValueAccessService) : IConsumerService
 {
     private ServiceBusClient client = clientManager.GetServiceBusClient();
     private bool shouldProcessQueueMessages = false;
@@ -66,11 +68,34 @@ public sealed class ConsumerService(IClientManager clientManager, ISecureValueAc
     // handle received messages
     private async Task MessageHandler(ProcessMessageEventArgs args)
     {
-        string body = args.Message.Body.ToString();
-        Console.WriteLine($"Received: {body}");
+        string receivedConfigValues = args.Message.Body.ToString();
+        Console.WriteLine($"Received: {receivedConfigValues}");
+
+        // TODO: flatten the values on the agent side?
+        // TODO: maybe add a fileName k:v pair agent side?
+        var deserializedConfigValues = JsonSerializer.Deserialize<List<Dictionary<string, dynamic>>>(receivedConfigValues).ToArray();
+
+        if (deserializedConfigValues == null)
+        {
+            Console.WriteLine($"Panic! Couldn't deserialize config values - config was {receivedConfigValues}");
+
+            // remove the queue item, else we'll just get a loop of this failing anyway
+            await args.CompleteMessageAsync(args.Message);
+            return;
+        }
 
         Console.WriteLine("TODO: process this now please!");
-        await secureValueAccessHttpClient.GetValueFromRedis("key1");
+        //await secureValueAccessHttpClient.GetValueForKeyFromRedis("key1");
+
+        List<Task<bool>> tasks = new();
+        foreach (var configValueDictionary in deserializedConfigValues)
+        {
+            foreach (KeyValuePair<string, dynamic> pair in configValueDictionary)
+            {
+                tasks.Add(secureValueAccessService.DoesConfigValueMatch(pair.Key, pair.Value));
+            }
+        }
+        await Task.WhenAll(tasks);
 
         // complete the message. message is deleted from the queue. 
         await args.CompleteMessageAsync(args.Message);

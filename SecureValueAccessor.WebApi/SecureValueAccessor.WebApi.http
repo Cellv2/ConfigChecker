@@ -11,6 +11,14 @@ Content-Type: application/json
 POST {{SecureValueAccessor.WebApi_HostAddress}}/getRedisValueByKey
 Content-Type: application/json
 {
+    "key": "clientCode"
+}
+
+###
+
+POST {{SecureValueAccessor.WebApi_HostAddress}}/getRedisValueByKey
+Content-Type: application/json
+{
     "key": "this-should-not-exist"
 }
 

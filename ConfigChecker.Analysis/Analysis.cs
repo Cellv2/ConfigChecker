@@ -1,4 +1,5 @@
 ﻿using ConfigChecker.Analysis.Services.HttpClients;
+using ConfigChecker.Analysis.Services.SecureValueAccess;
 using ConfigChecker.Analysis.Services.ServiceBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,7 @@ var host = Host.CreateDefaultBuilder(args)
     {
         services.AddSingleton<IClientManager, ClientManager>();
         services.AddSingleton<IConsumerService, ConsumerService>();
+        services.AddSingleton<ISecureValueAccessService, SecureValueAccessService>();
 
         // https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory#avoid-typed-clients-in-singleton-services
         // https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory#using-ihttpclientfactory-together-with-socketshttphandler

@@ -1,8 +1,7 @@
 ﻿
-namespace ConfigChecker.Analysis.Services.HttpClients
+namespace ConfigChecker.Analysis.Services.HttpClients;
+
+public interface ISecureValueAccessHttpClient
 {
-    public interface ISecureValueAccessHttpClient
-    {
-        Task GetValueFromRedis(string value);
-    }
+    Task<string?> GetValueForKeyFromRedis(string value);
 }
