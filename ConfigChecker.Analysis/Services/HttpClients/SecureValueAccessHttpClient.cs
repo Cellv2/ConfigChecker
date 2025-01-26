@@ -15,18 +15,20 @@ public sealed class SecureValueAccessHttpClient : ISecureValueAccessHttpClient
     public async Task<string?> GetValueForKeyFromRedis(string redisKeyToCheck)
     {
         //redisKeyToCheck = JsonSerializer.Serialize(new { key = "key1" });
-        HttpContent content = new StringContent(redisKeyToCheck, System.Text.Encoding.UTF8, "application/json");
+        var serializedKeyToCheck = JsonSerializer.Serialize(new { key = redisKeyToCheck });
+        HttpContent content = new StringContent(serializedKeyToCheck, System.Text.Encoding.UTF8, "application/json");
 
         var response = await httpClient.PostAsync("/getRedisValueByKey", content);
         var responseVal = await response.Content.ReadAsStringAsync();
+        var deserializedResponseVal = JsonSerializer.Deserialize<string>(responseVal);
 
-        Console.WriteLine(responseVal);
+        Console.WriteLine(deserializedResponseVal);
 
-        if (responseVal == null)
+        if (deserializedResponseVal == null)
         {
             return null;
         }
 
-        return responseVal;
+        return deserializedResponseVal;
     }
 }

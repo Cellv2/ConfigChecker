@@ -73,7 +73,7 @@ public sealed class ConsumerService(IClientManager clientManager, ISecureValueAc
 
         // TODO: flatten the values on the agent side?
         // TODO: maybe add a fileName k:v pair agent side?
-        var deserializedConfigValues = JsonSerializer.Deserialize<List<Dictionary<string, dynamic>>>(receivedConfigValues).ToArray();
+        var deserializedConfigValues = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(receivedConfigValues)?.ToArray();
 
         if (deserializedConfigValues == null)
         {
@@ -90,7 +90,7 @@ public sealed class ConsumerService(IClientManager clientManager, ISecureValueAc
         List<Task<bool>> tasks = new();
         foreach (var configValueDictionary in deserializedConfigValues)
         {
-            foreach (KeyValuePair<string, dynamic> pair in configValueDictionary)
+            foreach (KeyValuePair<string, string> pair in configValueDictionary)
             {
                 tasks.Add(secureValueAccessService.DoesConfigValueMatch(pair.Key, pair.Value));
             }
