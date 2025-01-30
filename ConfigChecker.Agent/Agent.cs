@@ -2,7 +2,7 @@ using ConfigChecker.Agent.Services;
 using ConfigChecker.Agent.Services.ConfigProcessor;
 using ConfigChecker.Agent.Services.ConfigProcessor.ConfigToObjectMappers;
 using ConfigChecker.Agent.Services.ServiceBus;
-using ServiceBus.Emulator.WebApi.Services.ServiceBus;
+using ConfigChecker.Shared.ServiceBus;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,9 +1,8 @@
 ﻿
-namespace ConfigChecker.Agent.Services.ServiceBus
+namespace ConfigChecker.Agent.Services.ServiceBus;
+
+public interface IConsumerService
 {
-    public interface IConsumerService
-    {
-        Task ConsumeQueueMessagesAsync(string queueName);
-        Task Shutdown();
-    }
+    Task ConsumeQueueMessagesAsync(string queueName);
+    Task Shutdown();
 }

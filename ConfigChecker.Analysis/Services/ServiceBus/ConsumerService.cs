@@ -1,7 +1,7 @@
 ﻿using Azure.Messaging.ServiceBus;
 using ConfigChecker.Analysis.Services.HttpClients;
 using ConfigChecker.Analysis.Services.SecureValueAccess;
-using ServiceBus.Emulator.WebApi.Services.ServiceBus;
+using ConfigChecker.Shared.ServiceBus;
 using System.Text.Json;
 
 namespace ConfigChecker.Analysis.Services.ServiceBus;

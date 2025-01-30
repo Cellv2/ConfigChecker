@@ -1,3 +1,4 @@
+using ConfigChecker.Shared.ServiceBus;
 using ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
 // check this for some examples of stuff:

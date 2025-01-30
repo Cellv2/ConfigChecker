@@ -1,6 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 
-namespace ServiceBus.Emulator.WebApi.Services.ServiceBus;
+namespace ConfigChecker.Shared.ServiceBus;
 
 public sealed class ClientManager : IClientManager
 {

@@ -1,9 +1,9 @@
 ﻿using ConfigChecker.Analysis.Services.HttpClients;
 using ConfigChecker.Analysis.Services.SecureValueAccess;
 using ConfigChecker.Analysis.Services.ServiceBus;
+using ConfigChecker.Shared.ServiceBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ServiceBus.Emulator.WebApi.Services.ServiceBus;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>

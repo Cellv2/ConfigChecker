@@ -1,5 +1,5 @@
 ﻿using Azure.Messaging.ServiceBus;
-using ServiceBus.Emulator.WebApi.Services.ServiceBus;
+using ConfigChecker.Shared.ServiceBus;
 
 namespace ConfigChecker.Agent.Services.ServiceBus;
 

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureValueAccessor.WebApi"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigChecker.Analysis", "ConfigChecker.Analysis\ConfigChecker.Analysis.csproj", "{A9580733-6877-4A36-8C9C-7B6BBA0C662B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigChecker.Shared", "ConfigChecker.Shared\ConfigChecker.Shared.csproj", "{9CB2BBC3-754A-4953-9269-5A39D08C7BF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A9580733-6877-4A36-8C9C-7B6BBA0C662B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9580733-6877-4A36-8C9C-7B6BBA0C662B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9580733-6877-4A36-8C9C-7B6BBA0C662B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CB2BBC3-754A-4953-9269-5A39D08C7BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB2BBC3-754A-4953-9269-5A39D08C7BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB2BBC3-754A-4953-9269-5A39D08C7BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB2BBC3-754A-4953-9269-5A39D08C7BF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

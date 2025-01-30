@@ -1,8 +1,7 @@
 ﻿using Azure.Messaging.ServiceBus;
 using ConfigChecker.Agent.Services.ConfigProcessor;
-using ServiceBus.Emulator.WebApi.Services.ServiceBus;
+using ConfigChecker.Shared.ServiceBus;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace ConfigChecker.Agent.Services.ServiceBus;
 
